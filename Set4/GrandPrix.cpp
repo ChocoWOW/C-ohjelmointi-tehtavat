@@ -19,7 +19,7 @@ class Auto
         void kiihdyta(int maara)  
         {
             nopeysnyt = nopeysnyt + maara;
-            if(nopeysnyt > huippunopeus) {
+            if(this->nopeysnyt > huippunopeus) {
                 nopeysnyt = huippunopeus;
             }
             if(nopeysnyt < 0) {
@@ -28,7 +28,7 @@ class Auto
         }
         void kulje (int tunti) 
         {
-            kuljettu = tunti * nopeysnyt;
+            kuljettu = kuljettu + tunti * nopeysnyt;
         }
         
         
@@ -39,35 +39,33 @@ int main()
 {
     std::cout<<"haha";
     Auto autot[10];
-    for (int i = 0; i < 9; i++ ) 
+    for (int i = 0; i <= 9; i++ ) 
     {
-        int maxspeed = rand() % 200 + 100;
-        std::string rekisteri = "abc" + i;
-        autot[i].set_huippu(maxspeed);
-        autot[i].set_rekisteri(rekisteri);
+        int maxspeed = rand() % 100 + 100;
+        std::string letter = "abc";
+        int num = i;
+        std::string rekisteri;
+        rekisteri = letter + std::to_string(num);
+        autot[i].huippunopeus = maxspeed;
+        autot[i].rekisteritunnus = rekisteri;
 
     }
     int b = 0;
-    while (true) 
-    {
-        int abc = rand() % 20 + -10;
-        autot[b].kiihdyta(abc);
+    while(autot[b].kuljettu < 10000)
+    {   
+        int random = rand() % -10 + 15;
+        autot[b].kiihdyta(random);
         autot[b].kulje(1);
-        
-        if (autot[b].kuljettu >= 10000)
+        if (b < 9)
         {
-            break;
-        }
-        if (b < 9) 
+            b++;
+        } else 
         {
-            b = b + 1;
-        }
-        else {
             b = 0;
         }
-        
     }
-    for (int i = 0; i < 9; i++) {
+    
+    for (int i = 0; i <= 9; i++) {
         std::cout<<"nimi: "<<autot[i].rekisteritunnus<<"\n";
         std::cout<<"huippunopeus: "<<autot[i].huippunopeus<<"\n";
         std::cout<<"nopeus lopussa: "<<autot[i].nopeysnyt<<"\n";
